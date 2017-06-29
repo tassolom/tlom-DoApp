@@ -4,7 +4,7 @@ package com.example.doapp;
  * Created by Tasso on 12/06/2017.
  */
 
-public class Doador {
+public class Instituicao {
 
     int ID;
 
@@ -13,42 +13,44 @@ public class Doador {
 
     String nome;
     String endereco;
-    String cpf;
+    String cnpj;
     String contato;
     String itens;
 
-    public Doador () {
+    public Instituicao () {
 
     }
 
-    public Doador (int _ID, String _login, String _senha, String _nome, String _cpf, String _endereco, String _contato, String _itens) {
+    public Instituicao (int _ID, String _login, String _senha, String _nome, String _cnpj, String _endereco, String _contato, String _itens) {
         this.ID = _ID;
 
         this.login = _login;
         this.senha = _senha;
 
         this.nome = _nome;
-        this.cpf = _cpf;
+        this.cnpj = _cnpj;
         this.endereco = _endereco;
         this.contato = _contato;
         this.itens = _itens;
     }
 
-    public Doador (String _login, String _senha, String _nome, String _endereco, String _cpf, String _contato, String _itens) {
+    public Instituicao (String _login, String _senha, String _nome, String _endereco, String _cnpj, String _contato) {
         this.login = _login;
         this.senha = _senha;
 
         this.nome = _nome;
         this.endereco = _endereco;
-        this.cpf = _cpf;
+        this.cnpj = _cnpj;
         this.contato = _contato;
-        this.itens = _itens;
     }
 
-    public Doador (String _nome, String _endereco, String _cpf, String _contato, String _itens) {
+    public Instituicao (String _login, String _senha, String _nome, String _endereco, String _cnpj, String _contato, String _itens) {
+        this.login = _login;
+        this.senha = _senha;
+
         this.nome = _nome;
         this.endereco = _endereco;
-        this.cpf = _cpf;
+        this.cnpj = _cnpj;
         this.contato = _contato;
         this.itens = _itens;
     }
@@ -95,12 +97,12 @@ public class Doador {
         this.endereco = endereco;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getCnpj() {
+        return cnpj;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
     public String getContato() {

@@ -19,14 +19,14 @@ public class CadastroScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cadastro);
 
-        /*final Button institut = (Button) findViewById(R.id.instituicao);
+        final Button institut = (Button) findViewById(R.id.instituicao);
         institut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CadastroScreen.this, CadastroInstituicao.class);
                 startActivity(intent);
             }
-        });*/
+        });
 
         final Button doador = (Button) findViewById(R.id.doador);
         doador.setOnClickListener(new View.OnClickListener() {
@@ -38,4 +38,5 @@ public class CadastroScreen extends Activity {
         });
 
     }
+
 }

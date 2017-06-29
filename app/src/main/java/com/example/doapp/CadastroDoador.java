@@ -8,11 +8,14 @@ import android.preference.PreferenceFragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.List;
+
+import static android.R.attr.checked;
 
 /**
  * Created by Tasso on 04/06/2017.
@@ -21,6 +24,7 @@ import java.util.List;
 public class CadastroDoador extends Activity {
 
     EditText editLogin, editSenha, editNome, editCpf, editEndereco, editContato;
+    CheckBox item1, item2, item3, item4, item5, item6, item7, item8, item9;
 
     public static final String LOGIN = "login";
     public static final String SENNHA = "senha";
@@ -38,6 +42,9 @@ public class CadastroDoador extends Activity {
         // o xml cadastro_instituicao é um Fragmente que chama o método abaixo
         setContentView(R.layout.cadastro_doador);
 
+        //db.deleteBancoDeDados();
+
+        //---------EDIT TEXTs--------------
         editLogin = (EditText) findViewById(R.id.loginDoador);
         editSenha = (EditText) findViewById(R.id.senhaDoador);
 
@@ -46,22 +53,38 @@ public class CadastroDoador extends Activity {
         editEndereco = (EditText) findViewById(R.id.enderecoDoador);
         editContato = (EditText) findViewById(R.id.contatoDoador);
 
+        //---------CHECKBOXs--------------
+        item1 = (CheckBox) findViewById(R.id.item1);
+        item2 = (CheckBox) findViewById(R.id.item2);
+        item3 = (CheckBox) findViewById(R.id.item3);
+        item4 = (CheckBox) findViewById(R.id.item4);
+        item5 = (CheckBox) findViewById(R.id.item5);
+        item6 = (CheckBox) findViewById(R.id.item6);
+        item7 = (CheckBox) findViewById(R.id.item7);
+        item8 = (CheckBox) findViewById(R.id.item8);
+        item9 = (CheckBox) findViewById(R.id.item9);
+
         final Button okButton = (Button) findViewById(R.id.okButtonDoador);
         okButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                db.addDoador( new Doador(editLogin.getText().toString(),
+
+                String itens = onCheckboxClicked();
+                Toast.makeText(CadastroDoador.this, itens, Toast.LENGTH_LONG).show();
+
+                db.addDoador( new Doador (editLogin.getText().toString(),
                         editSenha.getText().toString(),
                         editNome.getText().toString(),
                         editCpf.getText().toString(),
                         editEndereco.getText().toString(),
-                        editContato.getText().toString())
+                        editContato.getText().toString(),
+                        itens)
                 );
 
                 Toast.makeText(CadastroDoador.this, "Cadastro realizado com sucesso", Toast.LENGTH_LONG).show();
 
-                listarDoadores();
+                //listarDoadores();
 
                 finish();
             }
@@ -70,20 +93,20 @@ public class CadastroDoador extends Activity {
         /* TESTE DO CRUD */
 
         //insert ok
-        /*db.addDoador(new Doador("Tasso","Rua Camboim, 941","09029194405","999004401"));
-        db.addDoador(new Doador("Tércio","Rua Camboim, 941","09029194405","999004401"));
+        /*db.addDoador(new Doador("tassoeu","tassosenha","Tasso","Rua Camboim, 941","09029194405","999004401"));
+        db.addDoador(new Doador("tercioeu","terciosenha","Tércio","Rua Camboim, 941","09029194401","999004402"));
 
         Toast.makeText(CadastroDoador.this, "Salvo com sucesso", Toast.LENGTH_LONG).show();*/
 
         //delete ok
         /*Doador doador = new Doador();
-        doador.setNome("Tércio");
+        doador.setID(1);
         db.apagarDoador(doador);
 
         Toast.makeText(CadastroDoador.this, "Apagado com sucesso", Toast.LENGTH_LONG).show();*/
 
         //slect ok
-        /*Doador doador = db.selecionarDoador("Tasso");
+        /*Doador doador = db.selecionarDoador(2);
         Log.d("Doador selecionado", "Nome: " + doador.getNome() + " Endereço: " + doador.getEndereco()
         + " CPF: " + doador.getCpf() + " Contato: " + doador.getContato());*/
 
@@ -100,12 +123,40 @@ public class CadastroDoador extends Activity {
 
     }
 
+    public String onCheckboxClicked() {
+
+        String itens = "";
+
+        // Check which checkbox was clicked
+
+        if(item1.isChecked())
+            itens = itens + "1";
+        if(item2.isChecked())
+            itens = itens + "2";
+        if(item3.isChecked())
+            itens = itens + "3";
+        if(item4.isChecked())
+            itens = itens + "4";
+        if(item5.isChecked())
+            itens = itens + "5";
+        if(item6.isChecked())
+            itens = itens + "6";
+        if(item7.isChecked())
+            itens = itens + "7";
+        if(item8.isChecked())
+            itens = itens + "8";
+        if(item9.isChecked())
+            itens = itens + "9";
+
+        return itens;
+    }
+
     public void listarDoadores() {
         List<Doador> doadores = db.listaTodosDoadores();
 
         for(Doador d : doadores) {
-            Log.d("Lista", "\nDados: " + d.getLogin() + d.getSenha() + d.getNome() + d.getCpf()
-            + d.getEndereco() + d.getContato());
+            Log.d("Lista", "\nDados: " + d.getID() + " " + d.getLogin() + " " + d.getSenha() + " "
+                    + d.getNome() + " " + d.getCpf() + " " + d.getEndereco() + " " + d.getContato());
         }
     }
 

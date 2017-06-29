@@ -7,12 +7,14 @@
     <string name="doador">Doador</string>
     <string name="itens_instituicao">Itens de interesse</string>
     <string name="itens_doador">Itens para doação</string>
-    <string name="intem1">Roupas</string>
-    <string name="intem2">Higiene Pessoal</string>
-    <string name="intem3">Alimentos Não Perecíveis</string>
-    <string name="intem4">Roupas de cama</string>
-    <string name="intem5">Móveis</string>
+    <string name="intem1">Alimentos Não Perecíveis</string>
+    <string name="intem2">Água</string>
+    <string name="intem3">Higiene Pessoal</string>
+    <string name="intem4">Roupas</string>
+    <string name="intem5">Roupas de cama</string>
     <string name="intem6">Livros</string>
     <string name="intem7">Brinquedos</string>
+    <string name="intem8">Móveis</string>
+    <string name="intem9">Eletrônicos</string>
 
 </resources>
