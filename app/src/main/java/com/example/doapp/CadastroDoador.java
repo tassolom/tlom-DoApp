@@ -70,21 +70,27 @@ public class CadastroDoador extends Activity {
             @Override
             public void onClick(View view) {
 
-                String itens = onCheckboxClicked();
-                Toast.makeText(CadastroDoador.this, itens, Toast.LENGTH_LONG).show();
+                //Toast.makeText(CadastroDoador.this, itens, Toast.LENGTH_LONG).show();
 
-                db.addDoador( new Doador (editLogin.getText().toString(),
+                Doador doador = new Doador (editLogin.getText().toString(),
                         editSenha.getText().toString(),
                         editNome.getText().toString(),
                         editCpf.getText().toString(),
                         editEndereco.getText().toString(),
-                        editContato.getText().toString(),
-                        itens)
-                );
+                        editContato.getText().toString());
+
+                // addUsuario pega tudo menos cpf
+                db.addUsuario( doador );
+                // addDoador pega somente o cpf
+                //db.addDoador( doador );
+
+                onCheckboxClicked( doador );
 
                 Toast.makeText(CadastroDoador.this, "Cadastro realizado com sucesso", Toast.LENGTH_LONG).show();
 
-                //listarDoadores();
+                listarUsuarios();
+                listarDoadores();
+                listarItensDoador();
 
                 finish();
             }
@@ -123,40 +129,51 @@ public class CadastroDoador extends Activity {
 
     }
 
-    public String onCheckboxClicked() {
-
-        String itens = "";
-
-        // Check which checkbox was clicked
+    // quando a CheckBox é selecionada, é adicionada a tabela intem doador o id do respectivo item e do doador
+    void onCheckboxClicked(Doador doador) {
 
         if(item1.isChecked())
-            itens = itens + "1";
+            db.addItensDoador(1, doador.getID());
         if(item2.isChecked())
-            itens = itens + "2";
+            db.addItensDoador(2, doador.getID());
         if(item3.isChecked())
-            itens = itens + "3";
+            db.addItensDoador(3, doador.getID());
         if(item4.isChecked())
-            itens = itens + "4";
+            db.addItensDoador(4, doador.getID());
         if(item5.isChecked())
-            itens = itens + "5";
+            db.addItensDoador(5, doador.getID());
         if(item6.isChecked())
-            itens = itens + "6";
+            db.addItensDoador(6, doador.getID());
         if(item7.isChecked())
-            itens = itens + "7";
+            db.addItensDoador(7, doador.getID());
         if(item8.isChecked())
-            itens = itens + "8";
+            db.addItensDoador(8, doador.getID());
         if(item9.isChecked())
-            itens = itens + "9";
-
-        return itens;
+            db.addItensDoador(9, doador.getID());
     }
 
     public void listarDoadores() {
-        List<Doador> doadores = db.listaTodosDoadores();
+        List<BancoDados.TbDoadores> doadores = db.listaTodosDoadores();
 
-        for(Doador d : doadores) {
-            Log.d("Lista", "\nDados: " + d.getID() + " " + d.getLogin() + " " + d.getSenha() + " "
-                    + d.getNome() + " " + d.getCpf() + " " + d.getEndereco() + " " + d.getContato());
+        for(BancoDados.TbDoadores d : doadores) {
+            Log.d("Lista", "\nTABELA DOADOR: " + d.getID() + " " + d.getCpf());
+        }
+    }
+
+    public void listarUsuarios() {
+        List<Usuario> usuarios = db.listaTodosUsuarios();
+
+        for(Usuario u : usuarios) {
+            Log.d("Lista", "\nTABELA USUÁRIO: " + u.getID() + " " + u.getLogin() + " " + u.getSenha() + " "
+                    + u.getNome() + " " + u.getEndereco() + " " + u.getContato());
+        }
+    }
+
+    public void listarItensDoador() {
+        List<BancoDados.TbDoisIDs> usuarios = db.listaTodosItensDoad();
+
+        for(BancoDados.TbDoisIDs id : usuarios) {
+            Log.d("Lista", "\nTABELA ITENS USUÁRIO: " + id.getID1() + " " + id.getID2());
         }
     }
 

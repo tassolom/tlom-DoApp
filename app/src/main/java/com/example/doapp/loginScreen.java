@@ -31,9 +31,9 @@ public class loginScreen extends Activity {
             @Override
             public void onClick(View v) {
 
-                Doador doador = db.selecionarDoador(editLogin.getText().toString());
+                Usuario usuario = db.selecionarUsuario(editLogin.getText().toString());
                 //LOGIN E SENHA A SEREM VALIDADOS
-                String validarLS = doador.getLogin() + doador.getSenha();
+                String validarLS = usuario.getLogin() + usuario.getSenha();
                 //LOGIN E SENHA DIGITADOS NOS CAMPOS login e senha
                 String entradaLS = editLogin.getText().toString() + editSenha.getText().toString();
 

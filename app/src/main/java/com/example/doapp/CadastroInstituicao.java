@@ -62,20 +62,23 @@ public class CadastroInstituicao extends Activity {
             @Override
             public void onClick(View view) {
 
-                String itens = onCheckboxClicked();
-                Toast.makeText(CadastroInstituicao.this, itens, Toast.LENGTH_LONG).show();
+                //Toast.makeText(CadastroInstituicao.this, itens, Toast.LENGTH_LONG).show();
 
-                db.addInstituicao( new Instituicao(editLogin.getText().toString(),
+                Instituicao instituicao = new Instituicao(editLogin.getText().toString(),
                         editSenha.getText().toString(),
                         editNome.getText().toString(),
                         editCnpj.getText().toString(),
                         editEndereco.getText().toString(),
-                        editContato.getText().toString())
-                );
+                        editContato.getText().toString());
+
+                db.addUsuario( instituicao );
+                onCheckboxClicked( instituicao );
 
                 Toast.makeText(CadastroInstituicao.this, "Cadastro realizado com sucesso", Toast.LENGTH_LONG).show();
 
+                listarUsuarios();
                 listarInstituicoes();
+                listarItensInstituicao();
 
                 finish();
             }
@@ -114,40 +117,51 @@ public class CadastroInstituicao extends Activity {
 
     }
 
-    public String onCheckboxClicked() {
-
-        String itens = "";
-
-        // Check which checkbox was clicked
+    // quando a CheckBox é selecionada, é adicionada a tabela intem instituição o id do respectivo item e da instituição
+    void onCheckboxClicked(Instituicao instituicao) {
 
         if(item1.isChecked())
-            itens = itens + "1";
+            db.addItensInst(1, instituicao.getID());
         if(item2.isChecked())
-            itens = itens + "2";
+            db.addItensInst(2, instituicao.getID());
         if(item3.isChecked())
-            itens = itens + "3";
+            db.addItensInst(3, instituicao.getID());
         if(item4.isChecked())
-            itens = itens + "4";
+            db.addItensInst(4, instituicao.getID());
         if(item5.isChecked())
-            itens = itens + "5";
+            db.addItensInst(5, instituicao.getID());
         if(item6.isChecked())
-            itens = itens + "6";
+            db.addItensInst(6, instituicao.getID());
         if(item7.isChecked())
-            itens = itens + "7";
+            db.addItensInst(7, instituicao.getID());
         if(item8.isChecked())
-            itens = itens + "8";
+            db.addItensInst(8, instituicao.getID());
         if(item9.isChecked())
-            itens = itens + "9";
-
-        return itens;
+            db.addItensInst(9, instituicao.getID());
     }
 
     public void listarInstituicoes() {
-        List<Instituicao> instituicoes = db.listaTodasInstituicoes();
+        List<BancoDados.TbInstituicoes> instituicoes = db.listaTodasInstituicoes();
 
-        for(Instituicao d : instituicoes) {
-            Log.d("Lista", "\nDados: " + d.getID() + " " + d.getLogin() + " " + d.getSenha() + " "
-                    + d.getNome() + " " + d.getCnpj() + " " + d.getEndereco() + " " + d.getContato());
+        for(BancoDados.TbInstituicoes d : instituicoes) {
+            Log.d("Lista", "\nTABELA INTITUIÇÃO: " + d.getID() + " " + d.getCnpj());
+        }
+    }
+
+    public void listarItensInstituicao() {
+        List<BancoDados.TbDoisIDs> usuarios = db.listaTodosItensInst();
+
+        for(BancoDados.TbDoisIDs id : usuarios) {
+            Log.d("Lista", "\nTABELA ITENS INSTITUIÇÃO: " + id.getID1() + " " + id.getID2());
+        }
+    }
+
+    public void listarUsuarios() {
+        List<Usuario> usuarios = db.listaTodosUsuarios();
+
+        for(Usuario u : usuarios) {
+            Log.d("Lista", "\nTABELA USUÁRIO: " + u.getID() + " - " + u.getLogin() + " - " + u.getSenha() + " - "
+                    + u.getNome() + " - " + u.getEndereco() + " - " + u.getContato());
         }
     }
 }
