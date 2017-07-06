@@ -618,29 +618,34 @@ public class BancoDados extends SQLiteOpenHelper{
 
     // ----------------- SELECTs ----------------
 
-    /*void matchDoadorInstituicoes (Usuario usuario) {
+    void matchDoadorInstituicoes (Usuario usuario) {
         SQLiteDatabase db= this.getWritableDatabase();
 
-        *//*String query = "SELEC FROM "
-                + TABELA_ITENS_DOADOR + " TbItDo, "
-                + "WHERE "
-                + "TbItDo." + _ID_DOAD + " = " + usuario.getID() + ";";
+        // seleciona os itens de um usuário
+        //int[] itens = new int[9];
+        ArrayList<Integer> itens = new ArrayList<Integer>();
+        String query = "SELEC "+ _ID_ITEM
+                + " FROM " + TABELA_ITENS_DOADOR
+                + " WHERE " + _ID_DOAD + " = " + usuario.getID() + ";";
 
         Cursor c = db.rawQuery(query,null);
 
-
         if(c.moveToFirst()) {
+            int i = 0;
             do {
-
+                itens.add(c.getInt(i));
+                i++;
             } while (c.moveToNext());
-        }*//*
+        }
 
-        String query = "SELECT "
-                + TABELA_ITENS + "." + COLUNA_ITEM
-                + " FROM " + TB_ITEM TITEM, TB_DOADOR TDO, TB_ITENS_DOADOR TID
+
+
+        /*String query = "SELECT "
+                + TABELA_ITENS + "." + _ID_ITEM + " AS ITEM "
+                + "FROM " + TB_ITEM TITEM, TB_DOADOR TDO, TB_ITENS_DOADOR TID
         WHERE TDO._ID = TID._ID_DOADOR AND
-        TITEM._ID_ITEM = TID._ID_ITEM;";
-    }*/
+        TITEM._ID_ITEM = TID._ID_ITEM;";*/
+    }
 
     void deleteBancoDeDados () {
         mContext.deleteDatabase(BANCO_DOADOR);
