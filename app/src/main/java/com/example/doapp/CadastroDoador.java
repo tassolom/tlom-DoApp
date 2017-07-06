@@ -88,6 +88,16 @@ public class CadastroDoador extends Activity {
 
                 Toast.makeText(CadastroDoador.this, "Cadastro realizado com sucesso", Toast.LENGTH_LONG).show();
 
+                /*db.addUsuario(new Doador ("tlom","senha","Tasso Luís O Moraes", "090.291.944-05", "Rua Camboim - 941, Recife", "(81)999004401"));
+                db.addItensDoador(1, 2);
+                db.addItensDoador(2, 2);
+                db.addUsuario(new Doador ("jas4","senha","José Antônio da Silva", "002.231.954-01", "Rua Maria Jaboatão - 60, Recife", "(81)999962394"));
+                db.addItensDoador(3, 3);
+                db.addItensDoador(4, 3);
+                db.addUsuario(new Doador ("mes","senha","Maria Estela Souza", "190.391.234-09", "Rua Coronel Anizío Rodrigues Coelho - 447, Recife", "(81)998779878"));
+                db.addItensDoador(5, 4);
+                db.addItensDoador(6, 4);*/
+
                 listarUsuarios();
                 listarDoadores();
                 listarItensDoador();

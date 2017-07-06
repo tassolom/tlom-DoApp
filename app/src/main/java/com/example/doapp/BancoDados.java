@@ -254,11 +254,11 @@ public class BancoDados extends SQLiteOpenHelper{
         // verifica se o usuário é do tipo doador ou instituição
         if(usuario instanceof Doador){
 
-            System.out.println(">>>>>>>>> id doador: " + usuario.getID());
+            //System.out.println(">>>>>>>>> id doador: " + usuario.getID());
             addDoador((Doador) usuario);
         } else {
 
-            System.out.println(">>>>>>>>> id instituição: " + usuario.getID());
+            //System.out.println(">>>>>>>>> id instituição: " + usuario.getID());
             addInstituicao((Instituicao) usuario);
         }
 
@@ -290,9 +290,8 @@ public class BancoDados extends SQLiteOpenHelper{
             cursor.moveToFirst();
         }
 
-        Usuario usuario = new Doador(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
-                cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5),
-                cursor.getString(6));
+        Usuario usuario = new Usuario(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
+                cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5));
 
         return usuario;
     }
@@ -552,7 +551,7 @@ public class BancoDados extends SQLiteOpenHelper{
             do {
                 TbDoisIDs itensDoador = new TbDoisIDs();
 
-                System.out.println(">>>>>>>>>>>>>>>>>>>>>> doador id = " + c.getString(0));
+                //System.out.println(">>>>>>>>>>>>>>>>>>>>>> doador id = " + c.getString(0));
 
                 itensDoador.setID1(Integer.parseInt(c.getString(0)));
                 itensDoador.setID2(Integer.parseInt(c.getString(1)));
@@ -590,7 +589,7 @@ public class BancoDados extends SQLiteOpenHelper{
             do {
                 TbDoisIDs itensDoador = new TbDoisIDs();
 
-                System.out.println(">>>>>>>>>>>>>>>>>>>>>> doador id = " + c.getString(0));
+                //System.out.println(">>>>>>>>>>>>>>>>>>>>>> doador id = " + c.getString(0));
 
                 itensDoador.setID1(Integer.parseInt(c.getString(0)));
                 itensDoador.setID2(Integer.parseInt(c.getString(1)));
@@ -616,6 +615,32 @@ public class BancoDados extends SQLiteOpenHelper{
         db.insert(TABELA_REGISTRO, null, values);
         db.close();
     }
+
+    // ----------------- SELECTs ----------------
+
+    /*void matchDoadorInstituicoes (Usuario usuario) {
+        SQLiteDatabase db= this.getWritableDatabase();
+
+        *//*String query = "SELEC FROM "
+                + TABELA_ITENS_DOADOR + " TbItDo, "
+                + "WHERE "
+                + "TbItDo." + _ID_DOAD + " = " + usuario.getID() + ";";
+
+        Cursor c = db.rawQuery(query,null);
+
+
+        if(c.moveToFirst()) {
+            do {
+
+            } while (c.moveToNext());
+        }*//*
+
+        String query = "SELECT "
+                + TABELA_ITENS + "." + COLUNA_ITEM
+                + " FROM " + TB_ITEM TITEM, TB_DOADOR TDO, TB_ITENS_DOADOR TID
+        WHERE TDO._ID = TID._ID_DOADOR AND
+        TITEM._ID_ITEM = TID._ID_ITEM;";
+    }*/
 
     void deleteBancoDeDados () {
         mContext.deleteDatabase(BANCO_DOADOR);

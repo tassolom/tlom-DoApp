@@ -76,6 +76,13 @@ public class CadastroInstituicao extends Activity {
 
                 Toast.makeText(CadastroInstituicao.this, "Cadastro realizado com sucesso", Toast.LENGTH_LONG).show();
 
+                /*db.addUsuario(new Instituicao ("inst3","senha","Instituição 2", "090.291.944-05", "Rua Camboim - 941, Recife", "(81)999004401"));
+                db.addItensInst(1, 8);
+                db.addItensInst(2, 8);
+                db.addUsuario(new Instituicao ("inst5","senha","Instituição 4", "190.391.234-09", "Rua Coronel Anizío Rodrigues Coelho - 447, Recife", "(81)998779878"));
+                db.addItensInst(5, 9);
+                db.addItensInst(6, 9);*/
+
                 listarUsuarios();
                 listarInstituicoes();
                 listarItensInstituicao();

@@ -26,16 +26,16 @@
 
             <EditText
                 android:id="@+id/login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:hint="      login      "
                 android:textSize="20dp"
                 android:layout_gravity="center_horizontal" />
 
             <EditText
                 android:id="@+id/senha"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:hint="  senha  "
                 android:inputType="textPassword"
                 android:textSize="20dp"
@@ -52,13 +52,13 @@
 
     </LinearLayout>
 
-    <Button
+    <!--<Button
         android:id="@+id/logarFB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login_com_fb"
         android:textSize="20dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal" />-->
 
     <Button
         android:id="@+id/cadastro"
