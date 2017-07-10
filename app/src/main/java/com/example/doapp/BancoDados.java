@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -441,7 +442,8 @@ public class BancoDados extends SQLiteOpenHelper{
         db.close();
     }
 
-    Doador selecionarInstituicao (String login) {
+    // Seleciona Instituição pelo Login
+    Instituicao selecionarInstituicao (String login) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(
@@ -458,7 +460,32 @@ public class BancoDados extends SQLiteOpenHelper{
             cursor.moveToFirst();
         }
 
-        Doador instituicao = new Doador(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
+        Instituicao instituicao = new Instituicao(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
+                cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5),
+                cursor.getString(6));
+
+        return instituicao;
+    }
+
+    // Seleviona Instituição pelo ID
+    Instituicao selecionarInstituicao (int ID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(
+                TABELA_INSTITUICAO,
+                new String[] {_ID, COLUNA_LOGIN, COLUNA_SENHA, COLUNA_NOME,
+                        COLUNA_CNPJ, COLUNA_END, COLUNA_CONT},
+                _ID + " = ?",
+                new String[] {String.valueOf(ID)},
+                null,
+                null,
+                null );
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+
+        Instituicao instituicao = new Instituicao(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
                 cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5),
                 cursor.getString(6));
 
@@ -619,32 +646,68 @@ public class BancoDados extends SQLiteOpenHelper{
     // ----------------- SELECTs ----------------
 
     void matchDoadorInstituicoes (Usuario usuario) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int cont = 0;
+        // carrega em itens o intes do doador (usuário)
+        ArrayList<Integer> itens = listaItensDoador(usuario.getID());
+        HashSet<Integer> instituicoes = new HashSet<Integer>();
+        ArrayList<Usuario> user = new ArrayList<Usuario>();
+
+        // adiciona as instituições que possuem os mesmos itens do doador (usuário)
+        for (Integer i : itens) {
+            instituicoes.addAll(listaInstituicao(itens.get(cont)));
+            cont++;
+        }
+
+        for (Integer j : instituicoes) {
+            System.out.println("Instituição: " + j);
+            user.add(selecionarInstituicao(j));
+        }
+
+    }
+
+    // lista os itens de um doador especificado por id
+    ArrayList<Integer> listaItensDoador (int id) {
         SQLiteDatabase db= this.getWritableDatabase();
 
         // seleciona os itens de um usuário
-        //int[] itens = new int[9];
-        ArrayList<Integer> itens = new ArrayList<Integer>();
-        String query = "SELEC "+ _ID_ITEM
+        String query = "SELECT "+ _ID_ITEM
                 + " FROM " + TABELA_ITENS_DOADOR
-                + " WHERE " + _ID_DOAD + " = " + usuario.getID() + ";";
+                + " WHERE " + _ID_DOAD + " = " + id + ";";
 
         Cursor c = db.rawQuery(query,null);
+        ArrayList<Integer> itens = new ArrayList<Integer>();
 
         if(c.moveToFirst()) {
-            int i = 0;
             do {
-                itens.add(c.getInt(i));
-                i++;
+                itens.add(c.getInt(0));
             } while (c.moveToNext());
         }
 
+        return itens;
+    }
 
+    // lista as instituições que possuem determinado id
+    ArrayList<Integer> listaInstituicao (int id) {
+        SQLiteDatabase db= this.getWritableDatabase();
 
-        /*String query = "SELECT "
-                + TABELA_ITENS + "." + _ID_ITEM + " AS ITEM "
-                + "FROM " + TB_ITEM TITEM, TB_DOADOR TDO, TB_ITENS_DOADOR TID
-        WHERE TDO._ID = TID._ID_DOADOR AND
-        TITEM._ID_ITEM = TID._ID_ITEM;";*/
+        // seleciona os itens de um usuário
+
+        String query = "SELECT " + _ID_INST
+                + " FROM " + TABELA_ITENS_INSTITUICAO
+                + " WHERE " + _ID_ITEM + " = " + id;
+
+        Cursor c = db.rawQuery(query,null);
+        ArrayList<Integer> instituicoes = new ArrayList<Integer>();
+
+        if(c.moveToFirst()) {
+            do {
+                instituicoes.add(c.getInt(0));
+            } while (c.moveToNext());
+        }
+
+        return instituicoes;
     }
 
     void deleteBancoDeDados () {
